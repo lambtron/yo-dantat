@@ -31,11 +31,13 @@ Routes.index = function *index() {
 Routes.getYo = function *getYo() {
   var username = this.request.query.username;
   var get = thunkify(request.get);
-  var isOpen = yield get(domain);
+  var data = yield get(domain);
   var link = host + '/?message=';
-  console.log(isOpen);
-  if (isOpen)
+  var isOpen = data[0].body;
+  if (~isOpen.indexOf('true'))
     link += 'Open'
+  else
+    link += 'Closed'
   this.body = yield Yo.yo_link(username, link);
 };
 
