@@ -33,6 +33,7 @@ Routes.getYo = function *getYo() {
   var get = thunkify(request.get);
   var isOpen = yield get(domain);
   var link = host + '/?message=';
+  console.log(isOpen);
   if (isOpen)
     link += 'Open'
   this.body = yield Yo.yo_link(username, link);
