@@ -1,4 +1,4 @@
-YO NEAR ME
-========
+DANTAT
+=========
 
-YO YONEARME to get other YO users nearby.
+Yo "DANTAT" to see if Golden Gate Bakery is open.
