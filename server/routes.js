@@ -3,7 +3,11 @@
  * Module dependencies.
  */
 
+var domain = 'http://dantat.herokuapp.com/api/isopen';
+var host = 'http://yo-dantat.herokuapp.com/isopen';
+var thunkify = require('thunkify-wrap');
 var render = require('../lib/render');
+var request = require('request');
 var Yo = require('../lib/yo');
 
 /**
@@ -26,7 +30,11 @@ Routes.index = function *index() {
 
 Routes.getYo = function *getYo() {
   var username = this.request.query.username;
-  var link = '';
+  var get = thunkify(request.get);
+  var isOpen = yield get(domain);
+  var link = host + '/?message=';
+  if (isOpen)
+    link += 'Open'
   this.body = yield Yo.yo_link(username, link);
 };
 
@@ -35,8 +43,8 @@ Routes.getYo = function *getYo() {
  */
 
 Routes.showRes = function *showRes() {
-  var message = this.request.query;
-  this.body = yield render('result', { message: message });
+  var data = this.request.query;
+  this.body = yield render('result', { message: data.message });
 };
 
 /**
